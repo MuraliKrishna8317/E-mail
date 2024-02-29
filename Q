@@ -1,0 +1,11 @@
+Overview:
+The core objective of this assignment is to develop a solution that automates the process of sending emails based on the data provided in an Excel file. The Excel file will contain several columns, including 'TO list', 'CC list', ‘Subject’, 'Action Item', 'SLA', 'ETA', and 'Remarks'. The task will be to create a script or application that reads this data and sends emails accordingly.
+Requirements:
+Email Composition: The email's should include dynamically the ‘Subject’ and email body should dynamically include the 'Action Item', 'SLA', 'ETA', and 'Remarks' from the Excel file. Ensure the email format is professional and clear.
+Multiple Recipients: Both the 'TO' and 'CC' fields in the Excel file may list multiple recipients (separated by a semicolon). Your solution should correctly parse these fields and send emails to all listed recipients.
+Automation: The process of reading the Excel file and sending emails should be fully automated. Consider using programming languages such as Java, Python, VB Scripting in Excel itself along with libraries like pandas for Excel manipulation and smtplib for email sending, or any other technology stack you're comfortable with.
+Error Handling: Implement error handling to manage potential issues, such as invalid email addresses or missing data fields.
+Deliverables:
+A working script/application that meets the above requirements.
+Documentation detailing how to set up and use your solution, including any necessary configurations for email servers.
+A brief report explaining your approach, technologies used, challenges faced, and how you overcame them.
