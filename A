@@ -1,0 +1,63 @@
+pip install pandas openpyxl
+import pandas as pd
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+# Function to send emails
+def send_email(to_email, cc_email, subject, body):
+    # Set up SMTP server
+    smtp_server = 'your_smtp_server'
+    smtp_port = 587  # Update with your SMTP port
+    sender_email = 'your_email@example.com'  # Update with your email address
+    password = 'your_email_password'  # Update with your email password
+
+    # Create message container - the correct MIME type is multipart/alternative
+    msg = MIMEMultipart('alternative')
+    msg['From'] = sender_email
+    msg['To'] = to_email
+    msg['Cc'] = cc_email
+    msg['Subject'] = subject
+
+    # Attach HTML to the email
+    msg.attach(MIMEText(body, 'html'))
+
+    # Start the server
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()
+
+    # Login to the server
+    server.login(sender_email, password)
+
+    # Send the email
+    server.sendmail(sender_email, to_email.split(';') + cc_email.split(';'), msg.as_string())
+
+    # Quit the server
+    server.quit()
+
+# Read Excel file
+df = pd.read_excel('your_excel_file.xlsx')
+
+# Iterate over rows
+for index, row in df.iterrows():
+    # Extract data from the row
+    to_list = row['TO list']
+    cc_list = row['CC list']
+    subject = row['Subject']
+    action_item = row['Action Item']
+    sla = row['SLA']
+    eta = row['ETA']
+    remarks = row['Remarks']
+
+    # Compose email body
+    email_body = f"""
+    <p><strong>Action Item:</strong> {action_item}</p>
+    <p><strong>SLA:</strong> {sla}</p>
+    <p><strong>ETA:</strong> {eta}</p>
+    <p><strong>Remarks:</strong> {remarks}</p>
+    """
+
+    # Send email
+    send_email(to_list, cc_list, subject, email_body)
+
+print("Emails sent successfully!")
